@@ -20,8 +20,12 @@ export const Form = () => {
       type: newType,
       date: currentDate.toLocaleDateString(),
     };
-    if (test.trim() === "" || amount === 0) {
+    if (test.trim() === "" || amount.trim() === "") {
       alert("Please fill in all fields.");
+      return;
+    }
+    if (amount < 0 || amount === "0") {
+      alert("Please Enter a valid amount");
       return;
     }
     setTest("");
@@ -44,7 +48,8 @@ export const Form = () => {
               value="INCOME"
             />
             <label className="themeSwitcherTwo shadow-card relative inline-flex select-none items-center justify-center rounded-l-md bg-white p-1 cursor-pointer">
-              <span onClick={toggleSwitch}
+              <span
+                onClick={toggleSwitch}
                 className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
                   !isChecked ? "text-primary bg-[#2dd435]" : "text-body-color"
                 }`}
@@ -60,7 +65,8 @@ export const Form = () => {
               value="EXPENSE"
             />
             <label className="themeSwitcherTwo shadow-card relative inline-flex select-none items-center justify-center rounded-r-md bg-white p-1 cursor-pointer">
-              <span onClick={toggleSwitch}
+              <span
+                onClick={toggleSwitch}
                 className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
                   isChecked ? "text-primary bg-[#d43e2d]" : "text-body-color"
                 }`}
