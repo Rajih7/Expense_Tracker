@@ -10,11 +10,7 @@ const AppContext = createContext(initialState);
 const AppProvider = ({ children }) => {
   const [isDivVisible, setDivVisibility] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [isClickedGreen, setIsClickedGreen] = useState(true);
-  const [isClickedRed, setIsClickedRed] = useState(true);
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  const [greenButtonsActive, setGreenButtonsActive] = useState(true);
-  const [redButtonsActive, setRedButtonsActive] = useState(true);
 
   const deleteList = (id) => {
     dispatch({
@@ -22,41 +18,28 @@ const AppProvider = ({ children }) => {
       payload: id,
     });
   };
+  const toggleSwitch = () => {
+    setIsChecked(!isChecked);
+  };
   const addList = (transactions) => {
     dispatch({
       type: "ADD_LIST",
       payload: transactions,
     });
   };
-  const isEarn = () => {
+  const isClicked = () => {
     setDivVisibility(!isDivVisible);
-    setIsChecked(isChecked);
-    setIsClickedGreen(!isClickedGreen);
-    setGreenButtonsActive(!greenButtonsActive);
   };
-
-  const isSpent = () => {
-    setDivVisibility(!isDivVisible);
-    setIsChecked(!isChecked);
-    setIsClickedRed(!isClickedRed);
-    setRedButtonsActive(!redButtonsActive);
-  };
-
-
   return (
     <AppContext.Provider
       value={{
         isDivVisible,
         isChecked,
-        isClickedGreen,
-        isClickedRed,
-        isEarn,
-        isSpent,
+        isClicked,
         transactions: state.transactions,
         deleteList,
         addList,
-        redButtonsActive,
-        greenButtonsActive,
+        toggleSwitch,
       }}
     >
       {children}

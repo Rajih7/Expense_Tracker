@@ -2,22 +2,23 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 
 export const Form = () => {
-  const { isChecked, isDivVisible, addList } = useContext(AppContext);
+  const { isChecked, isDivVisible, addList, toggleSwitch } =
+    useContext(AppContext);
   const [test, setTest] = useState("");
   const [amount, setAmount] = useState();
   const [type, setType] = useState();
-  const [date, setDate ]= useState();
+  const [date, setDate] = useState();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const currentDate=new Date();
+    const currentDate = new Date();
     const newType = isChecked ? "EXPENSE" : "INCOME";
     const newList = {
       id: Math.floor(Math.random() * 100000000),
       test,
       amount: newType === "EXPENSE" && isChecked ? -amount : +amount,
       type: newType,
-      date:currentDate.toLocaleDateString(),
+      date: currentDate.toLocaleDateString(),
     };
     if (test.trim() === "" || amount === 0) {
       alert("Please fill in all fields.");
@@ -26,7 +27,7 @@ export const Form = () => {
     setTest("");
     setAmount("");
     setType(newType);
-    setDate("")
+    setDate("");
     addList(newList);
   };
 
@@ -42,8 +43,8 @@ export const Form = () => {
               name="type"
               value="INCOME"
             />
-            <label className="themeSwitcherTwo shadow-card relative inline-flex select-none items-center justify-center rounded-l-md bg-white p-1">
-              <span
+            <label className="themeSwitcherTwo shadow-card relative inline-flex select-none items-center justify-center rounded-l-md bg-white p-1 cursor-pointer">
+              <span onClick={toggleSwitch}
                 className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
                   !isChecked ? "text-primary bg-[#2dd435]" : "text-body-color"
                 }`}
@@ -58,8 +59,8 @@ export const Form = () => {
               name="type"
               value="EXPENSE"
             />
-            <label className="themeSwitcherTwo shadow-card relative inline-flex select-none items-center justify-center rounded-r-md bg-white p-1">
-              <span
+            <label className="themeSwitcherTwo shadow-card relative inline-flex select-none items-center justify-center rounded-r-md bg-white p-1 cursor-pointer">
+              <span onClick={toggleSwitch}
                 className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
                   isChecked ? "text-primary bg-[#d43e2d]" : "text-body-color"
                 }`}

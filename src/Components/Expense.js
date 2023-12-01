@@ -2,15 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 
 export const Expense = () => {
-  const {
-    isClickedGreen,
-    isClickedRed,
-    isSpent,
-    isEarn,
-    transactions,
-    greenButtonsActive,
-    redButtonsActive,
-  } = useContext(AppContext);
+  const { isClicked, transactions, isDivVisible } = useContext(AppContext);
 
   const amounts = transactions.map((transaction) =>
     parseFloat(transaction.amount)
@@ -27,19 +19,37 @@ export const Expense = () => {
   ).toFixed(2);
 
   return (
-    <div className="flex">
-      <div className="text-slate-700 text-center w-1/2 font-bold bg-gradient-to-r from-green-500 to-lime-300">
-        <h1>{income}₹</h1>
-        <h2>Earned</h2>
-        <button onClick={isEarn} disabled={!redButtonsActive} className="w-full">
-          {isClickedGreen ? "+" : "x"}
-        </button>
+    <div>
+      <div className="flex h-16">
+        <div className="text-slate-600 text-center w-1/2 font-bold bg-gradient-to-r from-green-500 to-lime-300">
+          <h1 className="text-xl">{income}₹</h1>
+          <h2>Earned</h2>
+        </div>
+        <div className="text-slate-600 text-center w-1/2 font-bold bg-gradient-to-r from-red-500 to-orange-400">
+          <h1 className="text-xl">{expense}₹</h1>
+          <h2>Spent</h2>
+        </div>
       </div>
-      <div className="text-slate-700 text-center w-1/2 font-bold bg-gradient-to-r from-red-500 to-orange-400">
-        <h1>{expense}₹</h1>
-        <h2>Spent</h2>
-        <button onClick={isSpent} disabled={!greenButtonsActive} className="w-full">
-          {isClickedRed ? "-" : "x"}
+      <div>
+        <button
+          class="cssbuttons-io-button w-full rounded-b-xl"
+          onClick={isClicked}
+        >
+          <div class="icon text-gray-500">{isDivVisible ? "X" : 
+            <svg
+              height="24"
+              width="24"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"
+              ></path>
+            </svg>}
+          </div>
+          {isDivVisible ? "Cancel" : "Add Expense/Income"}
         </button>
       </div>
     </div>

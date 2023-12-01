@@ -11,7 +11,7 @@ import './App.css';
 function App() {
   return (
     <AppProvider>
-    <div className="blr h-screen m-auto lg:w-1/2 sm:w-screen">
+    <div className="blr h-screen m-auto lg:w-1/2 sm:w-full">
       <Balance />
       <Expense />
       <Form />
